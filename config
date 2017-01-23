@@ -168,9 +168,9 @@ set $mirroredmon xrandr --output DP-1 --off --output HDMI-1 --mode 1920x1080 --p
 
 set $monitors Monitors default (Down) mirrored (Up) rightof (Right)
     mode "$monitors" {
-    bindsym Down exec --no-startup-id killall -q compton; exec --no-startup-id $defaultmon; exec --no-startup-id $compmanager; mode "default"
-    bindsym Up exec --no-startup-id killall -q compton; exec --no-startup-id $mirroredmon; exec --no-startup-id $compmanager; mode "default"
-    bindsym Right exec --no-startup-id killall -q compton; exec --no-startup-id $rightofmon; exec --no-startup-id $compmanager; mode "default"
+    bindsym Down exec --no-startup-id killall -q compton; exec --no-startup-id $defaultmon; exec --no-startup-id $compmanager; exec --no-startup-id pactl set-default-sink alsa_output.pci-0000_00_1b.0.analog-stereo; mode "default"
+    bindsym Up exec --no-startup-id killall -q compton; exec --no-startup-id $mirroredmon; exec --no-startup-id $compmanager; exec --no-startup-id pactl set-default-sink alsa_output.pci-0000_00_03.0.hdmi-stereo; mode "default"
+    bindsym Right exec --no-startup-id killall -q compton; exec --no-startup-id $rightofmon; exec --no-startup-id $compmanager; exec --no-startup-id pactl set-default-sink alsa_output.pci-0000_00_03.0.hdmi-stereo; mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -199,6 +199,7 @@ bindsym $mod+KP_Insert exec --no-startup-id $compmanager; exec --no-startup-id n
 
 # Autostart applications
 
+exec --no-startup-id conky -c ~/.config/config_i3/conky_solarized
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 exec_always --no-startup-id feh --bg-scale /home/swordxh/Pictures/wallpaper.jpg
 exec_always --no-startup-id $compmanager
@@ -209,7 +210,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id pasystray
 exec --no-startup-id /usr/lib/prime-indicator/prime-indicator
 exec --no-startup-id light-locker
-exec --no-startup-id ~/clipster/clipster -d
+exec --no-startup-id clipit
 
 set $Locker xflock4 && sleep 1
 
